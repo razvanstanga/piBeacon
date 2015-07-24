@@ -47,8 +47,8 @@ start_it() {
 
     if [ $DEVICES -gt "0" ]
     then
-       log_daemon_msg "Starting piBeacon"
-       BLENO_HCI_DEVICE_ID="$DEVICE_ID" $NODE_EXEC -s -a -l $LOG_FILE -o $APP_LOG_FILE -e $APP_ERR_FILE --pidFile $PID_FILE start "$APP_DIR/$NODE_APP"
+       log_daemon_msg "Starting piBeacon $DEVICE_ID"
+       BLENO_HCI_DEVICE_ID="$DEVICE_ID" FOREVER_ROOT="$APP_DIR/.forever" $NODE_EXEC -s -a -l $LOG_FILE -o $APP_LOG_FILE -e $APP_ERR_FILE --pidFile $PID_FILE start "$APP_DIR/$NODE_APP"
        while [ ! -f $PID_FILE ]
        do
            sleep 1
@@ -58,7 +58,7 @@ start_it() {
 }
 
 stop_process() {
-    $NODE_EXEC stop "$APP_DIR/$NODE_APP"
+    FOREVER_ROOT="$APP_DIR/.forever" $NODE_EXEC stop "$APP_DIR/$NODE_APP"
 }
 
 remove_pid_file() {
