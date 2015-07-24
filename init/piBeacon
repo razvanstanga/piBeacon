@@ -11,15 +11,17 @@
 
 . /lib/lsb/init-functions
 
+FILE=`basename "$0"`
+DEVICE_ID="${FILE##*.}"
 APP_DIR="/opt/piBeacon"
-NODE_APP1="app1.js"
+NODE_APP="app$DEVICE_ID.js"
 CONFIG_DIR="$APP_DIR"
 PID_DIR="$APP_DIR/pid"
-PID_FILE="$PID_DIR/app.pid"
+PID_FILE="$PID_DIR/app$DEVICE_ID.pid"
 LOG_DIR="$APP_DIR/log"
-LOG_FILE="$LOG_DIR/forever.log"
-APP_LOG_FILE="$LOG_DIR/app.log"
-APP_ERR_FILE="$LOG_DIR/err.log"
+LOG_FILE="$LOG_DIR/forever$DEVICE_ID.log"
+APP_LOG_FILE="$LOG_DIR/app$DEVICE_ID.log"
+APP_ERR_FILE="$LOG_DIR/err$DEVICE_ID.log"
 NODE_EXEC="/usr/local/bin/forever"
 . /etc/default/piBeacon
 
@@ -46,7 +48,7 @@ start_it() {
     if [ $DEVICES -gt "0" ]
     then
        log_daemon_msg "Starting piBeacon"
-       BLENO_HCI_DEVICE_ID="0" $NODE_EXEC -s -a -l $LOG_FILE -o $APP_LOG_FILE -e $APP_ERR_FILE --pidFile $PID_FILE start "$APP_DIR/$NODE_APP1"
+       BLENO_HCI_DEVICE_ID="$DEVICE_ID" $NODE_EXEC -s -a -l $LOG_FILE -o $APP_LOG_FILE -e $APP_ERR_FILE --pidFile $PID_FILE start "$APP_DIR/$NODE_APP"
        while [ ! -f $PID_FILE ]
        do
            sleep 1
@@ -56,7 +58,7 @@ start_it() {
 }
 
 stop_process() {
-    $NODE_EXEC stop "$APP_DIR/$NODE_APP1"
+    $NODE_EXEC stop "$APP_DIR/$NODE_APP"
 }
 
 remove_pid_file() {
