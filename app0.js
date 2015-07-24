@@ -1,5 +1,3 @@
-// Simplest way to create a Eddystone-URL Beacon
-
 var EddystoneBeacon = require('eddystone-beacon');
 
-EddystoneBeacon.advertiseUrl("http://www.google.ro/");
+EddystoneBeacon.advertiseUrl("http://www.example1.com/");
