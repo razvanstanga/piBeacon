@@ -13,6 +13,7 @@ wget http://node-arm.herokuapp.com/node_latest_armhf.deb
 sudo dpkg -i node_latest_armhf.deb
 npm install eddystone-beacon
 npm install forever-monitor
+npm install request
 npm install forever -g
 ln -s /usr/local/bin/node /usr/bin/node
 
