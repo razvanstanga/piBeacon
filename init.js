@@ -1,6 +1,6 @@
 var config = [];
 var fs = require('fs');
-var array = fs.readFileSync('default/piBeacon').toString().split("\n");
+var array = fs.readFileSync('/etc/default/piBeacon').toString().split("\n");
 for(i in array) {
 	var variabile = array[i].toString().split("=");
 	var key = variabile[0];
