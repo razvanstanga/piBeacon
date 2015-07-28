@@ -3,7 +3,7 @@ Install instructions :
 Make sure you have a functional Respberry Pi with RASPBIAN installed.
 Login to SSH as root and execute the folowing commands :
 
-wget -O - http://git.razvi.ro/?p=piBeacon.git&a=blob&f=install.sh&o=plain | bash
+wget https://raw.githubusercontent.com/razvanstanga/piBeacon/master/install.sh && sh install.sh install
 
 Initially there will be only one usb bluetooth adaptor support.
 To have more usb bluetooth adaptors, edit /etc/default/piBeacon and start to advertise URLs.
