@@ -1,0 +1,12 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides: piBeacon.0
+# Required-Start:    $local_fs $syslog $remote_fs dbus bluetooth
+# Required-Stop:     $local_fs $syslog $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start piBeacons
+### END INIT INFO
+
+. /opt/piBeacon/init/common
