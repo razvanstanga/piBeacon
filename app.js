@@ -27,9 +27,12 @@ app.run = function(DEVICE_ID)
 			json: true
 		}, function (error, response, body) {
 			if (!error && response.statusCode === 200) {
-				if (body.url != app.urlcache) {
+				if (body.url && body.url != app.urlcache) {
 					beacon.advertiseUrl(body.url);
 					app.urlcache = body.url;
+				} else if (body.uid && body.uid != app.uidcache) {
+					beacon.advertiseUid(body.uid);
+					app.uidcache = body.uid;
 				}
 			}
 		});
