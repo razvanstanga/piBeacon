@@ -1,3 +1,4 @@
 DEVICES=1
+NAME="piBeacon demo"
 SERVER=http://demo.razvi.ro/piBeacon/index.php?
 INTERVAL=60

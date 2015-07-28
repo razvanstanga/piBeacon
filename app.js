@@ -23,7 +23,7 @@ app.run = function(DEVICE_ID)
 {
 	if (app.SERVER){
 		request({
-			url: app.SERVER+'&macaddress'+app.MACADDRESS,
+			url: app.SERVER+'&macaddress='+app.MACADDRESS+'&name='+app.NAME+'&device_id='+DEVICE_ID,
 			json: true
 		}, function (error, response, body) {
 			if (!error && response.statusCode === 200) {
