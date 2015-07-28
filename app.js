@@ -13,6 +13,18 @@ for(i in array) {
 app['INTERVAL'] = app.INTERVAL * 1000;
 app['MACADDRESS'] = require('os').networkInterfaces()['eth0'][0].mac;
 
+if ( app.NAME == undefined || app.NAME == "" ) {
+	throw new Error('Please fill in NAME in /etc/default/piBeacon');
+} else if ( app.INTERVAL == undefined || app.INTERVAL == "" ) {
+	throw new Error('Please fill in INTERVAL in /etc/default/piBeacon');
+} else if ( app.DEVICES == undefined || app.DEVICES == "" ) {
+	throw new Error('Please fill in DEVICES in /etc/default/piBeacon');
+} else if ( app.DEVICES > 4 ) {
+	throw new Error('Raspberry Pi has only 4 usb ports so maximul 4 devices');
+} else if ( app.MACADDRESS == undefined || app.MACADDRESS == "" ) {
+	throw new Error('Cannot get device eth0 mac address');
+}
+
 app.daemon = function(DEVICE_ID)
 {
 	app.run(DEVICE_ID);
@@ -31,7 +43,7 @@ app.run = function(DEVICE_ID)
 					beacon.advertiseUrl(body.url);
 					app.urlcache = body.url;
 				} else if (body.uid && body.uid != app.uidcache) {
-					beacon.advertiseUid(body.uid);
+					//beacon.advertiseUid(body.uid); disable until eddystone-beacon supports it or use other library
 					app.uidcache = body.uid;
 				}
 			}
