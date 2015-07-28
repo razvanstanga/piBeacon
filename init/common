@@ -36,7 +36,7 @@ start_it() {
 	mkdir -p "$PID_DIR"
 	mkdir -p "$LOG_DIR"
 
-	if [ $DEVICES -gt "0" ]
+	if [ $DEVICES -gt "0" ] && [ "$DEVICE_ID" -lt "$DEVICES" ]
 	then
 		log_daemon_msg "Starting piBeacon $DEVICE_ID"
 		BLENO_HCI_DEVICE_ID="$DEVICE_ID" FOREVER_ROOT="$APP_DIR/.forever" $NODE_EXEC -s -a -l $LOG_FILE -o $APP_LOG_FILE -e $APP_ERR_FILE --pidFile $PID_FILE start "$APP_DIR/$NODE_APP"
@@ -45,6 +45,9 @@ start_it() {
 			sleep 1
 		done
 		log_end_msg $?
+	else
+		log_daemon_msg "Cannot start piBeacon $DEVICE_ID. Increase the number of devices, currently $DEVICES"
+		log_end_msg 1
 	fi
 }
 
