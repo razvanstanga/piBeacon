@@ -1,2 +1,2 @@
-var config = require('./config');
-config.daemon(0);
+var app = require('./app');
+app.daemon(0);
