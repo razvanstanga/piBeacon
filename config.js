@@ -19,21 +19,21 @@ config.daemon = function(ID){
 }
 
 config.run = function(ID){
-        if (config.SERVER){
-                request({
-                        url: config.SERVER+'&macaddress'+config.macaddress,
-                        json: true
-                }, function (error, response, body) {
-                        if (!error && response.statusCode === 200) {
-                                if (body.url != config.urlcache) {
-                                        beacon.advertiseUrl(body.url);
-                                        config.urlcache = body.url;
-                                }
-                        }
-                });
-        } else {
-                beacon.advertiseUrl("http://www.example"+ID+".com/");
-        }
+	if (config.SERVER){
+		request({
+			url: config.SERVER+'&macaddress'+config.macaddress,
+			json: true
+		}, function (error, response, body) {
+			if (!error && response.statusCode === 200) {
+				if (body.url != config.urlcache) {
+					beacon.advertiseUrl(body.url);
+					config.urlcache = body.url;
+				}
+			}
+		});
+	} else {
+		beacon.advertiseUrl("http://www.example"+ID+".com/");
+	}
 }
 
 module.exports = config
