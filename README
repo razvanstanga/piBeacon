@@ -12,3 +12,8 @@ To have more usb bluetooth adaptors, edit /etc/default/piBeacon and start to adv
 /etc/init.d/piBeacon.3 start
 
 I recommend the ASUS USB-BT400 as bluetooth adaptor.
+
+Usage :
+piBeacons will fetch urls from a backend and advertise them. The server & interval to fetch new urls are defined in /etc/default/piBeacon.
+You will be able to create/manage/schedule campaigns from the backend (wip) and advertise urls on unlimited piBeacons.
+The iBeacons can be managed from the backend with device name/mac address/device id and used in campaigns.
