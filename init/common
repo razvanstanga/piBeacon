@@ -36,6 +36,20 @@ start_it() {
 	mkdir -p "$PID_DIR"
 	mkdir -p "$LOG_DIR"
 
+	if [ -z "$DEVICES" ]
+	then
+		log_daemon_msg "Cannot start piBeacon. Please fill in DEVICES in /etc/default/piBeacon"
+		log_end_msg 1
+	elif [ -z "$NAME" ]
+	then
+		log_daemon_msg "Cannot start piBeacon. Please fill in NAME in /etc/default/piBeacon"
+		log_end_msg 1
+	elif [ -z "$INTERVAL" ]
+	then
+		log_daemon_msg "Cannot start piBeacon. Please fill in INTERVAL in /etc/default/piBeacon"
+		log_end_msg 1
+	fi
+
 	if [ $DEVICES -gt "0" ] && [ "$DEVICE_ID" -lt "$DEVICES" ]
 	then
 		log_daemon_msg "Starting piBeacon $DEVICE_ID"

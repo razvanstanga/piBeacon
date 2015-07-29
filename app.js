@@ -21,7 +21,7 @@ if ( app.NAME == undefined || app.NAME == "" ) {
 } else if ( app.DEVICES == undefined || app.DEVICES == "" ) {
 	throw new Error('Please fill in DEVICES in /etc/default/piBeacon');
 } else if ( app.DEVICES > 4 ) {
-	throw new Error('Raspberry Pi has only 4 usb ports so maximul 4 devices');
+	throw new Error('Raspberry Pi has only 4 usb ports so maximum 4 devices');
 } else if ( app.MACADDRESS == undefined || app.MACADDRESS == "" ) {
 	throw new Error('Cannot get device eth0 mac address');
 }
