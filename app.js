@@ -1,6 +1,6 @@
 var request = require('request');
-var beacon = require('eddystone-beacon');
-var bleacon = require('bleacon');
+var eddystoneBeacon = require('eddystone-beacon');
+var iBeacon = require('bleacon');
 
 var app = [];
 var fs = require('fs');
@@ -42,7 +42,7 @@ app.run = function(DEVICE_ID)
 			if (!error && response.statusCode === 200) {
 				if (body.type == 'eddystone-url') {
 					if (body.url && body.url != app.urlcache) {
-						beacon.advertiseUrl(body.url);
+						eddystoneBeacon.advertiseUrl(body.url);
 						app.urlcache = body.url;
 					}
 				} else if (body.type == 'eddystone-uid') {
@@ -57,14 +57,14 @@ app.run = function(DEVICE_ID)
 						var minor = body.monor ? body.minor : 0; // 0 - 65535
 						var measuredPower = body.measuredPower ? body.measuredPower :  -59; // -128 - 127 (measured RSSI at 1 meter)
 
-						bleacon.startAdvertising(uuid, major, minor, measuredPower);
+						iBeacon.startAdvertising(uuid, major, minor, measuredPower);
 						app.uuidcache = body.uuid;
 					}
 				}
 			}
 		});
 	} else {
-		beacon.advertiseUrl("http://www.example"+DEVICE_ID+".com/");
+		eddystoneBeacon.advertiseUrl("http://www.example"+DEVICE_ID+".com/");
 	}
 }
 
