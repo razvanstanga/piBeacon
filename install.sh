@@ -18,6 +18,7 @@ install_app (){
 	rm node_latest_armhf.deb
 
 	npm install eddystone-beacon
+	npm install bleacon
 	npm install forever-monitor
 	npm install request
 	npm install forever -g
@@ -56,6 +57,7 @@ uninstall_app (){
 
 	cd /opt/piBeacon
 	npm uninstall eddystone-beacon
+	npm uninstall bleacon
 	npm uninstall forever-monitor
 	npm uninstall request
 	npm uninstall forever -g

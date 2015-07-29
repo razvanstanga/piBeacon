@@ -1,5 +1,6 @@
 var request = require('request');
 var beacon = require('eddystone-beacon');
+var bleacon = require('bleacon');
 
 var app = [];
 var fs = require('fs');
@@ -39,12 +40,26 @@ app.run = function(DEVICE_ID)
 			json: true
 		}, function (error, response, body) {
 			if (!error && response.statusCode === 200) {
-				if (body.url && body.url != app.urlcache) {
-					beacon.advertiseUrl(body.url);
-					app.urlcache = body.url;
-				} else if (body.uid && body.uid != app.uidcache) {
-					//beacon.advertiseUid(body.uid); disable until eddystone-beacon supports it or use other library
-					app.uidcache = body.uid;
+				if (body.type == 'eddystone-url') {
+					if (body.url && body.url != app.urlcache) {
+						beacon.advertiseUrl(body.url);
+						app.urlcache = body.url;
+					}
+				} else if (body.type == 'eddystone-uid') {
+					if (body.namespaceId && body.instanceId && body.namespaceId+'-'+body.instanceId != app.uidcache) {
+						eddystoneBeacon.advertiseUid(body.namespaceId, body.instanceId);
+						app.uidcache = body.namespaceId+'-'+body.instanceId;
+					}
+				} else if (body.type == 'ibeacon') {
+					if (body.uuid && body.uuid != app.uuidcache) {
+						var uuid = body.uuid;
+						var major = body.major ? body.major : 0; // 0 - 65535
+						var minor = body.monor ? body.minor : 0; // 0 - 65535
+						var measuredPower = body.measuredPower ? body.measuredPower :  -59; // -128 - 127 (measured RSSI at 1 meter)
+
+						bleacon.startAdvertising(uuid, major, minor, measuredPower);
+						app.uuidcache = body.uuid;
+					}
 				}
 			}
 		});

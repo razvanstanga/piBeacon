@@ -13,9 +13,26 @@ $domains = array(".com",".name",".net",".org",".travel",".ac",".ad",".ae",".af",
 ".tg",".th",".tj",".tk",".tm",".tn",".to",".tp",".tr",".tt",".tv",".tw",".tz",".ua",".ug",".uk",".um",".us",".uy",".uz", ".va",".vc",
 ".ve",".vg",".vi",".vn",".vu",".wf",".ws",".ye",".yt",".yu",".za",".zm",".zr",".zw");
 
-$json = array (
-	"url"	=>	"http://www.google".$domains[ mt_rand(0, count($domains)-1) ]."/"
-);
+if ( $_GET['type'] == "eddystone-url" ) {
+	$json = array (
+		"type"	=>	"eddystone-url",
+		"url"	=>	"http://www.google".$domains[ mt_rand(0, count($domains)-1) ]."/"
+	);
+} elseif ( $_GET['type'] == "eddystone-uid" ) {
+	$json = array (
+		"type"	=>	"eddystone-uid",
+		"namespaceId"	=>	"00010203040506070809",
+		"instanceId"	=>	"aabbccddeeff"
+	);
+} elseif ( $_GET['type'] == "ibeacon" ) {
+	$json = array (
+		"type"	=>	"ibeacon",
+		"uuid"	=>	"B9407F30F5F8466EAFF925556B57FE6D", //Estimote default proximityUUID
+		"minor"	=>	0,
+		"major"	=>	0,
+		"measuredPower"	=>	-59
+	);
+}
 echo json_encode ($json);
 
 ?>
