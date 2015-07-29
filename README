@@ -1,19 +1,28 @@
 Install instructions :
 
 Make sure you have a functional Respberry Pi with RASPBIAN installed.
-Login to SSH as root and execute the folowing commands :
+Login to SSH as root and execute the folowing command :
 
 wget https://raw.githubusercontent.com/razvanstanga/piBeacon/master/install.sh && sh install.sh install
 
 Initially there will be only one usb bluetooth adaptor support.
-To have more usb bluetooth adaptors, edit /etc/default/piBeacon and start to advertise URLs.
+To have more usb bluetooth adaptors, edit DEVICES in /etc/default/piBeacon and start them.
 /etc/init.d/piBeacon.1 start
 /etc/init.d/piBeacon.2 start
 /etc/init.d/piBeacon.3 start
 
-I recommend the ASUS USB-BT400 as bluetooth adaptor.
+I recommend the ASUS USB-BT400/Logilink 4.0+EDR as bluetooth adaptors.
 
 Usage :
-piBeacons will fetch urls from a backend and advertise them. The server & interval to fetch new urls are defined in /etc/default/piBeacon.
-You will be able to create/manage/schedule campaigns from the backend (wip) and advertise urls on unlimited piBeacons.
+
+piBeacons will fetch eddystone-url/eddystone-uid/iBeacon UUID from a backend and advertise them.
+You will be able to create/manage/schedule campaigns from the backend (wip) and use unlimited piBeacons.
 The piBeacons can be managed from the backend with device name/mac address/device id and used in campaigns.
+One Respberry Pi as 4 USB ports so you have 4 beacons on one piBeacon.
+
+Think of a mall using piBeacons on strategic locations and managing all of them from one central backend, creating and scheduling campaigns for both Android/iOS
+with eddystone-url/eddystone-uid and iBeacons UUID.
+
+Config :
+
+The backend server URL/interval in seconds to fetch for changes/device name are defined in /etc/default/piBeacon.
