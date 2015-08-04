@@ -1,4 +1,4 @@
-DEVICES=1
+DEVICES="1"
 NAME="piBeacon demo"
-SERVER=http://demo.razvi.ro/piBeacon/index.php?type=eddystone-url
-INTERVAL=60
+SERVER="http://demo.razvi.ro/piBeacon/index.php?type=eddystone-url"
+INTERVAL="60"

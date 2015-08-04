@@ -6,11 +6,14 @@ var app = [];
 var fs = require('fs');
 var array = fs.readFileSync('/etc/default/piBeacon').toString().split("\n");
 for(i in array) {
-	var variabile = array[i].toString().split("=");
-	var key = variabile[0];
-	var val = variabile[1];
-	app[key] = val;
+	if (array[i].toString()) {
+		var variabile = array[i].toString().split('="');
+		var key = variabile[0];
+		var val = variabile[1].replace('"', '');
+		app[key] = val;
+	}
 }
+
 app['INTERVAL'] = app.INTERVAL * 1000;
 app['MACADDRESS'] = require('os').networkInterfaces()['eth0'][0].mac;
 
